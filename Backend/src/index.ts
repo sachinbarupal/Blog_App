@@ -1,17 +1,19 @@
-import express, { Express, Request, Response } from "express";
+import express, { Express } from "express";
 import dotenv from "dotenv";
 import cors from "cors";
-import { Prisma, PrismaClient } from "@prisma/client";
-dotenv.config();
-const app: Express = express();
 
+dotenv.config();
+const app = express();
 app.use(cors());
 app.use(express.json());
 
 const port = process.env.PORT || 3000;
 
 import { authRoutes } from "./routes/authRoutes";
+import { blogRoutes } from "./routes/blogRoutes";
+
 app.use("/api/auth", authRoutes);
+app.use("/api/blog", blogRoutes);
 
 app.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`);
