@@ -1,14 +1,8 @@
-import jwt, { JwtPayload } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import { NextFunction, Request, Response } from "express";
 import { errorResponse } from "../errorResponse";
 
-interface payload extends JwtPayload {
-  id: number;
-}
-
-interface CustomRequest extends Request {
-  id: number;
-}
+import { JWT_Payload, CustomRequest } from "../types";
 
 export function authMiddleware(
   req: Request,
@@ -22,7 +16,7 @@ export function authMiddleware(
     const secret = process.env.JWT_SECRET;
     if (!secret) return errorResponse(res, "Internal Server Error");
 
-    const response = jwt.verify(token, secret) as payload;
+    const response = jwt.verify(token, secret) as JWT_Payload;
     if (!response) return errorResponse(res, "Invalid Auth Token");
 
     (req as CustomRequest).id = response.id;

@@ -2,27 +2,20 @@ import { PrismaClient } from "@prisma/client";
 import { Request, Response } from "express";
 import { errorResponse, successResponse } from "../../errorResponse";
 
-import zod from "zod";
+import {
+  CustomRequest,
+  createBlogInput,
+  createBlogZodSchema,
+} from "../../types";
 
 const prisma = new PrismaClient();
-
-interface CustomRequest extends Request {
-  id: number;
-}
-
-const bodySchema = zod.object({
-  title: zod.string().trim().min(1),
-  content: zod.string().trim().min(1),
-});
-
-type bodyProps = zod.infer<typeof bodySchema>;
 
 async function main(req: Request, res: Response) {
   try {
     const id = (req as CustomRequest).id;
-    const { title, content }: bodyProps = req.body;
+    const { title, content }: createBlogInput = req.body;
 
-    const { success } = bodySchema.safeParse({
+    const { success } = createBlogZodSchema.safeParse({
       title,
       content,
     });

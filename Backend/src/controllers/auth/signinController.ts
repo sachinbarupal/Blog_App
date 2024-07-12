@@ -2,24 +2,18 @@ import { PrismaClient } from "@prisma/client";
 import { Request, Response } from "express";
 import { errorResponse, successResponse } from "../../errorResponse";
 
+import { signinZodSchema, signinInput } from "../../types";
+
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import zod from "zod";
 
 const prisma = new PrismaClient();
 
-const bodySchema = zod.object({
-  username: zod.string(),
-  password: zod.string(),
-});
-
-type bodyProp = zod.infer<typeof bodySchema>;
-
 async function main(req: Request, res: Response) {
   try {
-    const { username, password }: bodyProp = req.body;
+    const { username, password }: signinInput = req.body;
 
-    const { success } = bodySchema.safeParse({ username, password });
+    const { success } = signinZodSchema.safeParse({ username, password });
     if (!success) return errorResponse(res, "Invalid Inputs");
 
     const user = await prisma.user.findUnique({

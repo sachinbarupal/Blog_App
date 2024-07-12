@@ -7,7 +7,6 @@ import zod from "zod";
 const prisma = new PrismaClient();
 
 const bodySchema = zod.object({ id: zod.number() });
-
 type bodyProps = zod.infer<typeof bodySchema>;
 
 async function main(req: Request, res: Response) {
