@@ -20,7 +20,7 @@ export function authMiddleware(
     if (!token) return errorResponse(res, "Invalid Auth Token");
 
     const secret = process.env.JWT_SECRET;
-    if (!secret) return;
+    if (!secret) return errorResponse(res, "Internal Server Error");
 
     const response = jwt.verify(token, secret) as payload;
     if (!response) return errorResponse(res, "Invalid Auth Token");

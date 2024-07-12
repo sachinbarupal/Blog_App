@@ -1,10 +1,18 @@
 import express from "express";
-import { authMiddleware } from "../middleware/authMiddleware";
-import { createBlogController } from "../controllers/blog/createBlogController";
 const router = express.Router();
+
+import { authMiddleware } from "../middleware/authMiddleware";
+
+import { createBlogController } from "../controllers/blog/createBlogController";
+import { updateBlogController } from "../controllers/blog/updateBlogController";
+import { getBlogController } from "../controllers/blog/getBlogController";
+import { getBlogsController } from "../controllers/blog/getBlogsController";
 
 router.use(authMiddleware);
 
 router.post("/", createBlogController);
+router.put("/", updateBlogController);
+router.get("/", getBlogController);
+router.get("/blogs", getBlogsController);
 
 export const blogRoutes = router;

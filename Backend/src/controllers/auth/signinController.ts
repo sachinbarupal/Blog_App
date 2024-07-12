@@ -35,7 +35,7 @@ async function main(req: Request, res: Response) {
 
     const secret = process.env.JWT_SECRET;
 
-    if (!secret) return;
+    if (!secret) return errorResponse(res, "Internal Server Error");
 
     const token = jwt.sign({ id: user.id }, secret);
 

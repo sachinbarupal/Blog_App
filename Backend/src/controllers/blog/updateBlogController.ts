@@ -11,40 +11,50 @@ interface CustomRequest extends Request {
 }
 
 const bodySchema = zod.object({
-  title: zod.string().trim().min(1),
-  content: zod.string().trim().min(1),
+  id: zod.number(),
+  title: zod.string().optional(),
+  content: zod.string().optional(),
 });
 
 type bodyProps = zod.infer<typeof bodySchema>;
 
 async function main(req: Request, res: Response) {
   try {
-    const id = (req as CustomRequest).id;
-    const { title, content }: bodyProps = req.body;
-
+    const { id, title, content }: bodyProps = req.body;
+    const { id: authorId } = req as CustomRequest;
     const { success } = bodySchema.safeParse({
+      id,
       title,
       content,
     });
 
     if (!success) return errorResponse(res, "Invalid Inputs");
 
-    await prisma.blog.create({
+    if (title === "" || (title && title.trim() === ""))
+      return errorResponse(res, "Invalid Inputs");
+
+    if (content === "" || (content && content.trim() === ""))
+      return errorResponse(res, "Invalid Inputs");
+
+    await prisma.blog.update({
+      where: {
+        id,
+        authorId,
+      },
       data: {
         title,
         content,
-        authorId: id,
       },
     });
 
-    successResponse(res, "Blog Creation Success");
+    successResponse(res, "Blog Update Success");
   } catch (err) {
     console.log(err);
-    errorResponse(res, "Error in Creating Blog", 500);
+    errorResponse(res, "Error in Updating Blog", 500);
   }
 }
 
-export const createBlogController = (req: Request, res: Response) => {
+export const updateBlogController = (req: Request, res: Response) => {
   main(req, res)
     .then(async () => {
       await prisma.$disconnect();
