@@ -11,3 +11,9 @@ export type updateBlogInput = {
   title?: string;
   content?: string;
 };
+
+export type signinResponse = {
+  success: boolean;
+  message: string;
+  token: string;
+};

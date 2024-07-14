@@ -1,4 +1,4 @@
-export const BACKEND_URL = "https://localhost:4000/api/";
+export const BACKEND_URL = "http://localhost:4000/api/";
 
 const endpoints = {
   signup: BACKEND_URL + "auth/signup",

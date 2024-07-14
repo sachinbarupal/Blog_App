@@ -1,7 +1,7 @@
 const appRoutes = {
   signup: "/signup",
   signin: "/signin",
-  blog: "/blog",
+  blogs: "/blogs",
 } as const;
 
 export default appRoutes;
