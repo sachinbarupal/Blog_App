@@ -8,8 +8,12 @@ interface Prop {
 export const AuthHeader = ({ type }: Prop) => {
   return (
     <div className=" px-10 ">
-      <div className="text-3xl font-bold ">Create An Account</div>
-      <div className="text-slate-500">
+      <div className="text-3xl font-bold ">
+        {type === "signup"
+          ? "Create An Account"
+          : "Sign In into Existing Account"}
+      </div>
+      <div className="text-slate-500 text-center">
         {type === "signup"
           ? "Already have an account?"
           : "Don't have an account?"}

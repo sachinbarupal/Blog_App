@@ -10,6 +10,16 @@ async function main(req: Request, res: Response) {
     const blogs = await prisma.blog.findMany({
       take: 10,
       skip: 10 * page,
+      select: {
+        id: true,
+        title: true,
+        content: true,
+        author: {
+          select: {
+            username: true,
+          },
+        },
+      },
     });
 
     successResponse(res, "Fetch Successfull", { blogs });

@@ -1,5 +1,3 @@
-import { Link } from "react-router-dom";
-import appRoutes from "../../routes/appRoutes";
 import { Input } from "../../components/Input";
 import { useAuth } from "./useAuth";
 import { Button } from "../../components/Button";

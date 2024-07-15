@@ -17,3 +17,18 @@ export type signinResponse = {
   message: string;
   token: string;
 };
+
+export type blogItem = {
+  id: number;
+  title: string;
+  content: string;
+  author: {
+    username: string;
+  };
+};
+
+export type BlogsApiResponse = {
+  blogs: blogItem[];
+  message: string;
+  success: boolean;
+};

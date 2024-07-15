@@ -1,14 +1,30 @@
-import { BlogCard } from "../../containers/BlogCard/BlogCard";
+import { AppBar } from "../../containers/AppBar";
+import { BlogCard } from "../../containers/BlogCard";
+import { useBlogs } from "./useBlogs";
 
 export function Blogs() {
+  const { isLoading, blogs } = useBlogs();
+
+  if (isLoading) return;
   return (
     <div>
-      <BlogCard
-        authorName="sachin"
-        title="Jai Ho"
-        content="lorem ipsum dorel dorel dorel"
-        publishedDate="15/10/15"
-      />
+      <AppBar />
+      {isLoading ? (
+        <div>Loading....</div>
+      ) : (
+        <div className="flex justify-center ">
+          <div className="max-w-xl w-1/2">
+            {blogs.map((blog) => (
+              <BlogCard
+                authorName={blog.author.username}
+                title={blog.title}
+                content={blog.content}
+                publishedDate="23 Dec, 23"
+              />
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
