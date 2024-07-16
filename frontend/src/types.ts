@@ -32,3 +32,9 @@ export type BlogsApiResponse = {
   message: string;
   success: boolean;
 };
+
+export type BlogApiResponse = {
+  blog: blogItem;
+  message: string;
+  success: boolean;
+};

@@ -6,12 +6,12 @@ import { blogItem, BlogsApiResponse } from "../../types";
 export const useBlogs = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [blogs, setBlogs] = useState<blogItem[]>([]);
-
+  const token = localStorage.getItem("token");
   const fetchBlogs = async () => {
     try {
       const { data }: { data: BlogsApiResponse } = await axios.get(
-        endpoints.blog + "/blogs",
-        { headers: { Authorization: localStorage.getItem("token") } }
+        endpoints.blogs,
+        { headers: { Authorization: token } }
       );
       setBlogs(data.blogs);
       setIsLoading(false);

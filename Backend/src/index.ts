@@ -14,7 +14,7 @@ import { authRoutes } from "./routes/authRoutes";
 import { blogRoutes } from "./routes/blogRoutes";
 
 app.use("/api/auth", authRoutes);
-app.use("/api/blog", blogRoutes);
+app.use("/api/blogs", blogRoutes);
 
 app.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`);

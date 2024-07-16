@@ -12,7 +12,7 @@ router.use(authMiddleware);
 
 router.post("/", createBlogController);
 router.put("/", updateBlogController);
-router.get("/", getBlogController);
-router.get("/blogs", getBlogsController);
+router.get("/blog/:id", getBlogController);
+router.get("/", getBlogsController);
 
 export const blogRoutes = router;

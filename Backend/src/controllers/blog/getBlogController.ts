@@ -2,24 +2,18 @@ import { PrismaClient } from "@prisma/client";
 import { Request, Response } from "express";
 import { errorResponse, successResponse } from "../../errorResponse";
 
-import zod from "zod";
-
 const prisma = new PrismaClient();
-
-const bodySchema = zod.object({ id: zod.number() });
-type bodyProps = zod.infer<typeof bodySchema>;
 
 async function main(req: Request, res: Response) {
   try {
-    const { id }: bodyProps = req.body;
-    const { success } = bodySchema.safeParse({ id });
-
-    if (!success) return errorResponse(res, "Invalid Input");
+    const { id } = req.params;
 
     const blog = await prisma.blog.findUnique({
-      where: { id },
+      where: { id: Number(id) },
       include: {
-        author: true,
+        author: {
+          select: { username: true },
+        },
       },
     });
     successResponse(res, "Fetch Successfull", { blog });
