@@ -22,7 +22,7 @@ async function main(req: Request, res: Response) {
 
     if (!success) return errorResponse(res, "Invalid Inputs");
 
-    await prisma.blog.create({
+    const { id: blogId } = await prisma.blog.create({
       data: {
         title,
         content,
@@ -30,7 +30,7 @@ async function main(req: Request, res: Response) {
       },
     });
 
-    successResponse(res, "Blog Creation Success");
+    successResponse(res, "Blog Creation Success", { id: blogId });
   } catch (err) {
     console.log(err);
     errorResponse(res, "Error in Creating Blog", 500);

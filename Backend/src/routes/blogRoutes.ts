@@ -10,7 +10,7 @@ import { getBlogsController } from "../controllers/blog/getBlogsController";
 
 router.use(authMiddleware);
 
-router.post("/", createBlogController);
+router.post("/blog", createBlogController);
 router.put("/", updateBlogController);
 router.get("/blog/:id", getBlogController);
 router.get("/", getBlogsController);

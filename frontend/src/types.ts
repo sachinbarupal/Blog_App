@@ -38,3 +38,8 @@ export type BlogApiResponse = {
   message: string;
   success: boolean;
 };
+
+export type createBlogBody = {
+  title: string;
+  content: string;
+};

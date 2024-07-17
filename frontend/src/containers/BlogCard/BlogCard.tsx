@@ -25,7 +25,7 @@ export const BlogCard = ({ blog }: Prop) => {
 
         <div className=" text-xl font-semibold pt-2">{title}</div>
         <div className="text-base font-thin">
-          {content.slice(0, 100) + (content.length > 100 && "...")}
+          {content.slice(0, 100) + (content.length > 100 ? "..." : "")}
         </div>
 
         <div className=" text-slate-400 text-sm font-medium pt-4">
