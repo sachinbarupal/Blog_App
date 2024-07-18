@@ -1,5 +1,6 @@
 import { AppBar } from "../../containers/AppBar";
 import { BlogCard } from "../../containers/BlogCard";
+import { BlogSkeleton } from "../../skeleton/BlogSkeleton";
 import { useBlogs } from "./useBlogs";
 
 export function Blogs() {
@@ -9,7 +10,15 @@ export function Blogs() {
     <>
       <AppBar />
       {isLoading ? (
-        <div>Loading....</div>
+        <div className="flex justify-center">
+          <div>
+            <BlogSkeleton />
+            <BlogSkeleton />
+            <BlogSkeleton />
+            <BlogSkeleton />
+            <BlogSkeleton />
+          </div>
+        </div>
       ) : (
         <div className="flex justify-center ">
           <div className="max-w-xl">

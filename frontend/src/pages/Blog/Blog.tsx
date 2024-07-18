@@ -2,16 +2,19 @@ import { useParams } from "react-router-dom";
 import { useBlog } from "./useBlog";
 import { AppBar } from "../../containers/AppBar";
 import { Avatar } from "../../components/Avatar";
+import { Spinner } from "../../components/Spinner";
 
 export const Blog = () => {
   const { id } = useParams();
   const { isLoading, blog } = useBlog(id || "");
 
   return (
-    <>
+    <div className="h-screen flex flex-col">
       <AppBar />
       {isLoading || !blog ? (
-        <div>Loading...</div>
+        <div className="flex flex-grow justify-center items-center">
+          <Spinner />
+        </div>
       ) : (
         <div className="flex justify-center">
           <div className="grid grid-cols-12 px-10 w-full pt-12 max-w-screen-xl">
@@ -42,6 +45,6 @@ export const Blog = () => {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 };
